@@ -1,0 +1,17 @@
+import XCTVapor
+@testable import App
+
+final class WarehouseWebServerTests: XCTestCase {
+    func testExample() throws {
+
+        let app = Application(.testing)
+        defer { app.shutdown() }
+        try configure(app)
+
+        try app.test(.GET, "hello", afterResponse: { res in
+            XCTAssertEqual(res.status, .ok)
+            XCTAssertEqual(res.body.string, "Hello, world!")
+        })
+
+    }
+}
